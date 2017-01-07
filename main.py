@@ -7,12 +7,14 @@ from datastore.models import EmailsDataStore
 
 nbc = NaiveBayesClassifier()
 
+size_train, size_test = map(lambda x:int(x), raw_input("Specify your train and test data sizes:").split())
+
+
 data_store = EmailsDataStore(max=10)
 data_store.populate()
-size_train = 210
 train_data = data_store.extract(count=size_train)
 
-test_data = data_store.extract(start=size_train + 1, count=30)
+test_data = data_store.extract(start=size_train + 1, count=size_test)
 
 nbc.prepare(train_data)
 nbc.test(test_data)
